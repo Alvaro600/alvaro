@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning Book - Grade 7</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .book-cover {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+
+        .page {
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+        }
+
+        .session-card {
+            border-left: 4px solid #3b82f6;
+            transition: all 0.2s ease;
+        }
+
+        .session-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .active-session {
+            background-color: #ebf5ff;
+        }
+
+        .dialog-box {
+            border-radius: 0.75rem;
+            position: relative;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .dialog-box:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: #dbeafe transparent;
+        }
+
+        .flip-card {
+            perspective: 1000px;
+            margin-bottom: 1.5rem;
+        }
+
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+            background-color: #fef9c3;
+        }
+
+        .session-content {
+            display: none;
+        }
+
+        .session-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .practice-box {
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- Book Cover -->
+        <div class="book-cover rounded-xl p-8 mb-8 text-white text-center">
+            <h1 class="text-4xl font-bold mb-2">English Learning Book</h1>
+            <h2 class="text-2xl mb-6">Practical English for Junior High School</h2>
+            <div class="w-32 h-1 bg-white bg-opacity-50 mx-auto mb-6"></div>
+            <p class="text-lg">Grade 7 - Semester 1</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="page rounded-xl p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-blue-600 flex items-center">
+                <i class="fas fa-list-ul mr-3"></i> Table of Contents
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Session 1 -->
+                <div class="session-card bg-white p-5 rounded-lg cursor-pointer" onclick="showSession(1)">
+                    <div class="flex items-center mb-3">
+                        <div
+                            class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Session 1</h3>
+                    </div>
+                    <p class="text-gray-700">Self Introduction</p>
+                </div>
+
+                <!-- Session 2 -->
+                <div class="session-card bg-white p-5 rounded-lg cursor-pointer" onclick="showSession(2)">
+                    <div class="flex items-center mb-3">
+                        <div
+                            class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 mr-3">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Session 2</h3>
+                    </div>
+                    <p class="text-gray-700">Daily Greetings</p>
+                </div>
+
+                <!-- Session 3 -->
+                <div class="session-card bg-white p-5 rounded-lg cursor-pointer" onclick="showSession(3)">
+                    <div class="flex items-center mb-3">
+                        <div
+                            class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mr-3">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Session 3</h3>
+                    </div>
+                    <p class="text-gray-700">Farewells</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session Content -->
+        <div id="session-content" class="page rounded-xl p-6">
+            <!-- Session 1: Self Introduction -->
+            <div id="session-1" class="session-content active">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-blue-600">Session 1: Self Introduction</h2>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                    <h3 class="font-bold text-blue-700 mb-2"><i class="fas fa-bullseye mr-2"></i>Learning Objectives
+                    </h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Learn how to introduce yourself confidently in English</li>
+                        <li>Understand the key components of a good self-introduction</li>
+                        <li>Practice introducing yourself in different contexts</li>
+                        <li>Develop proper pronunciation and body language</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-lg mb-3"><i class="fas fa-book-open mr-2 text-blue-500"></i>Learning
+                        Materials</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-bold mb-2 text-blue-600"><i class="fas fa-check-circle mr-2"></i>Key
+                                Components</h4>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li><span class="font-medium">Greeting:</span> Start with "Hello" or "Hi"</li>
+                                <li><span class="font-medium">Name:</span> "My name is..." or "I'm..."</li>
+                                <li><span class="font-medium">Age:</span> "I'm 12 years old"</li>
+                                <li><span class="font-medium">School:</span> "I study at..." or "I go to..."</li>
+                                <li><span class="font-medium">Hobbies:</span> "I like..." or "I enjoy..."</li>
+                                <li><span class="font-medium">Closing:</span> "Nice to meet you"</li>
+                            </ol>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-bold mb-2 text-blue-600"><i class="fas fa-comment-dots mr-2"></i>Example
+                                Introductions</h4>
+                            <div class="space-y-3">
+                                <div class="bg-blue-100 p-3 rounded-lg dialog-box">
+                                    <p class="font-medium">Formal Introduction:</p>
+                                    <p>"Good morning. My name is David Wilson. I'm 13 years old and I study at Sunshine
+                                        Junior High School. I enjoy reading books and playing football. Nice to meet
+                                        you."</p>
+                                </div>
+                                <div class="bg-blue-100 p-3 rounded-lg dialog-box">
+                                    <p class="font-medium">Casual Introduction:</p>
+                                    <p>"Hi! I'm Lisa. I'm 12 and I go to Greenfield Middle School. I love drawing and
+                                        listening to music. Nice to meet you all!"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practice-box">
+                    <h3 class="font-bold text-lg mb-3"><i class="fas fa-pencil-alt mr-2 text-blue-500"></i>Practice
+                        Activities</h3>
+
+                    <div class="mb-4">
+                        <h4 class="font-bold mb-2">1. Complete the Introduction</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg mb-3">
+                            <p class="mb-2">Fill in the blanks to complete this introduction:</p>
+                            <p>"Hello, my _____ is _____. I'm _____ years old. I study at _____. I like _____ and _____.
+                                Nice to _____ you!"</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="font-bold mb-2">2. Write Your Own Introduction</h4>
+                        <textarea
+                            class="w-full p-3 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            rows="5" placeholder="Write your self-introduction here..."></textarea>
+                        <button
+                            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition">Submit</button>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold mb-2">3. Record Yourself</h4>
+                        <p class="text-gray-700 mb-2">Practice saying your introduction aloud and record it:</p>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition mr-2">
+                            <i class="fas fa-microphone mr-2"></i>Record
+                        </button>
+                        <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition">
+                            <i class="fas fa-play mr-2"></i>Playback
+                        </button>
+                    </div>
+                </div>
+
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Self Introduction Lesson"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+
+                <div class="flip-card">
+                    <div class="flip-card-inner bg-white rounded-lg shadow">
+                        <div class="flip-card-front p-4">
+                            <h4 class="font-bold mb-2"><i class="fas fa-lightbulb mr-2 text-yellow-500"></i>Cultural Tip
+                            </h4>
+                            <p>In English-speaking countries, introductions often include a handshake and eye contact.
+                                Smiling is important!</p>
+                        </div>
+                        <div class="flip-card-back p-4">
+                            <h4 class="font-bold mb-2"><i
+                                    class="fas fa-check-circle mr-2 text-green-500"></i>Introduction Tips</h4>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Stand up straight when introducing yourself</li>
+                                <li>Speak clearly at a moderate pace</li>
+                                <li>Maintain eye contact</li>
+                                <li>Keep it brief (30-60 seconds)</li>
+                                <li>Practice until it feels natural</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h4 class="font-bold mb-2"><i class="fas fa-volume-up mr-2 text-blue-500"></i>Pronunciation Guide
+                    </h4>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>"Hello" - /həˈloʊ/ (huh-LOH)</li>
+                        <li>"My name is" - /maɪ neɪm ɪz/ (my naym iz)</li>
+                        <li>"Nice to meet you" - /naɪs tə mit ju/ (nyse tuh meet yoo)</li>
+                        <li>Practice linking words: "Nice to meet you" → "Nice t'meet you"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Session 2: Daily Greetings -->
+            <div id="session-2" class="session-content hidden">
+                <div class="flex items-center mb-6">
+                    <div
+                        class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 mr-3">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-green-600">Session 2: Daily Greetings</h2>
+                </div>
+
+                <div class="bg-green-50 rounded-lg p-4 mb-6">
+                    <h3 class="font-bold text-green-700 mb-2"><i class="fas fa-bullseye mr-2"></i>Learning Objectives
+                    </h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Learn appropriate greetings for different times of day</li>
+                        <li>Understand formal and informal greeting situations</li>
+                        <li>Practice responding to common greetings</li>
+                        <li>Develop natural pronunciation and intonation</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-lg mb-3"><i class="fas fa-book-open mr-2 text-green-500"></i>Learning
+                        Materials</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-bold mb-2 text-green-600"><i class="fas fa-clock mr-2"></i>Time-Based
+                                Greetings</h4>
+                            <ul class="space-y-3">
+                                <li><span class="font-medium">Morning (5AM-12PM):</span> "Good morning"</li>
+                                <li><span class="font-medium">Afternoon (12PM-5PM):</span> "Good afternoon"</li>
+                                <li><span class="font-medium">Evening (5PM-9PM):</span> "Good evening"</li>
+                                <li><span class="font-medium">Night (after 9PM):</span> "Good night" (only when leaving)
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-bold mb-2 text-green-600"><i class="fas fa-users mr-2"></i>Situational
+                                Greetings</h4>
+                            <ul class="space-y-3">
+                                <li><span class="font-medium">Formal:</span> "Hello, Mr. Smith"</li>
+                                <li><span class="font-medium">Informal:</span> "Hi!", "Hey there!"</li>
+                                <li><span class="font-medium">Friends:</span> "What's up?", "How's it going?"</li>
+                                <li><span class="font-medium">Phone:</span> "Hello" (not time-based)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-lg mb-3"><i class="fas fa-comments mr-2 text-green-500"></i>Example
+                        Dialogues</h3>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <!-- Dialogue 1 -->
+                        <div class="flex items-start mb-3">
+                            <div
+                                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
+                                A</div>
+                            <div class="flex-1">
+                                <div class="bg-blue-50 p-3 rounded-lg">
+                                    <p>Good morning, Mrs. Johnson!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start mb-3">
+                            <div
+                                class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 mr-3">
+                                B</div>
+                            <div class="flex-1">
+                                <div class="bg-pink-50 p-3 rounded-lg">
+                                    <p>Good morning, Sarah! How are you today?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
+                                A</div>
+                            <div class="flex-1">
+                                <div class="bg-blue-50 p-3 rounded-lg">
+                                    <p>I'm doing well, thank you. How about you?</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-300 my-4"></div>
+
+                        <!-- Dialogue 2 -->
+                        <div class="flex items-start mb-3">
+                            <div
+                                class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 mr-3">
+                                C</div>
+                            <div class="flex-1">
+                                <div class="bg-yellow-50 p-3 rounded-lg">
+                                    <p>Hey Mike! What's up?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mr-3">
+                                D</div>
+                            <div class="flex-1">
+                                <div class="bg-purple-50 p-3 rounded-lg">
+                                    <p>Not much, just heading to class. You?</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practice-box">
+                    <h3 class="font-bold text-lg mb-3"><i class="fas fa-pencil-alt mr-2 text-green-500"></i>Practice
+                        Activities</h3>
+
+                    <div class="mb-4">
+                        <h4 class="font-bold mb-2">1. Matching Greetings</h4>
+                        <p class="mb-2">Match each situation with the appropriate greeting:</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <div class="p-2 border border-gray-200 rounded">8:00 AM to teacher</div>
+                            <div class="p-2 border border-gray-200 rounded">"Good morning, Mr. Brown"</div>
+                            <div class="p-2 border border-gray-200 rounded">3:00 PM to friend</div>
+                            <div class="p-2 border border-gray-200 rounded">"Hey! What's up?"</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="font-bold mb-2">2. Create Dialogues</h4>
+                        <p class="mb-2">Write short dialogues for these situations:</p>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-gray-50 rounded-lg">
+                                <p class="font-medium">Situation 1:</p>
+                                <p>Greeting your friend at 10:00 AM</p>
+                                <textarea class="w-full p-2 border border-gray-300 rounded mt-1" rows="2"></textarea>
+                            </div>
+                            <div class="p-3 bg-gray-50 rounded-lg">
+                                <p class="font-medium">Situation 2:</p>
+                                <p>Greeting your teacher at 1:00 PM</p>
+                                <textarea class="w-full p-2 border border-gray-300 rounded mt-1" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold mb-2">3. Role Play</h4>
+                        <p class="mb-2">Practice these greetings with a partner:</p>
+                        <div class="flex space-x-2">
+                            <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition">
+                                <i class="fas fa-user-friends mr-1"></i> Start Role Play
+                            </button>
+                            <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition">
+                                <i class="fas fa-random mr-1"></i> Switch Roles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card">
+                    <div class="flip-card-inner bg-white rounded-lg shadow">
+                        <div class="flip-card-front p-4">
+                            <h4 class="font-bold mb-2"><i class="fas fa-lightbulb mr-2 text-yellow-500"></i>Cultural Tip
+                            </h4>
+                            <p>In many English-speaking countries, greetings often include a handshake in formal
+                                situations or a wave/hug between friends.</p>
+                        </div>
+                        <div class="flip-card-back p-4">
+                            <h4 class="font-bold mb-2"><i class="fas fa-volume-up mr-2 text-green-500"></i>Pronunciation
+                                Tips</h4>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>"Good morning" often sounds like "G'morning"</li>
+                                <li>"How are you?" → "How ya doin'?"</li>
+                                <li>"What's up?" → "Wassup?"</li>
+                                <li>Rising intonation makes greetings sound friendlier</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Greetings Lesson" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- Session 3: Farewells -->
+            <div id="session-3" class="session-content hidden">
+                <div class="flex items-center mb-6">
+                    <div
+                        class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mr-3">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-purple-600">Session 3: Farewells</h2>
+                </div>
+
+                <div class="bg-purple-50 rounded-lg p-4 mb-6">
+                    <h3 class="font-bold text-purple-700 mb-2"><i class="fas fa-bullseye mr-2"></i>Learning Objectives
+                    </h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Learn common English farewell expressions</li>
+                        <li>Understand appropriate contexts for different goodbyes</li>
+                        <li>Practice ending conversations politely</li>
+                        <li>Develop natural-sounding farewell phrases</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-lg mb-3"><i class="fas fa-book-open mr-2 text-purple-500"></i>Learning
+                        Materials</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-bold mb-2 text-purple-600"><i class="fas fa-comment mr-2"></i>Common
+                                Farewells</h4>
+                            <ul class="space-y-3">
+                                <li><span class="font-medium">General:</span> "Goodbye", "Bye", "Bye-bye"</li>
+                                <li><span class="font-medium">See you again:</span> "See you later", "See you", "See ya"
+                                </li>
+                                <li><span class="font-medium">Time-specific:</span> "See you tomorrow", "See you next
+                                    week"</li>
+                                <li><span class="font-medium">Wishing well:</span> "Take care", "Have a nice day"</li>
+                                <li><span class="font-medium">Nighttime:</span> "Good night" (only when leaving/going to
+                                    bed)</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-bold mb-2 text-purple-600"><i
+                                    class="fas fa-user-friends mr-2"></i>Situational Farewells</h4>
+                            <ul class="space-y-3">
+                                <li><span class="font-medium">Formal:</span> "Goodbye, Mr. Smith. Have a nice day."</li>
+                                <li><span class="font-medium">Informal:</span> "Bye!", "Later!", "Catch you later"</li>
+                                <li><span class="font-medium">Friends:</span> "Peace", "Later gator" (very casual)</li>
+                                <li><span class="font-medium">Phone:</span> "Bye for now", "Talk to you soon"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-lg mb-3"><i class="fas fa-comments mr-2 text-purple-500"></i>Example
+                        Dialogues</h3>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <!-- Dialogue 1 -->
+                        <div class="flex items-start mb-3">
+                            <div
+                                class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
+                                A</div>
+                            <div class="flex-1">
+                                <div class="bg-blue-50 p-3 rounded-lg">
+                                    <p>Thank you for your help today, Mrs. Lee.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start mb-3">
+                            <div
+                                class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 mr-3">
+                                B</div>
+                            <div class="flex-1">
+                                <div class="bg-pink-50 p-3 rounded-lg">
+                                    <p>You're welcome, David. Have a good evening!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-300 my-4"></div>
+
+                        <!-- Dialogue 2 -->
+                        <div class="flex items-start mb-3">
+                            <div
+                                class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 mr-3">
+                                C</div>
+                            <div class="flex-1">
+                                <div class="bg-yellow-50 p-3 rounded-lg">
+                                    <p>I gotta go now. My mom's waiting.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600 mr-3">
+                                D</div>
+                            <div class="flex-1">
+                                <div class="bg-green-50 p-3 rounded-lg">
+                                    <p>Okay, see you tomorrow at school!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practice-box">
+                    <h3 class="font-bold text-lg mb-3"><i class="fas fa-pencil-alt mr-2 text-purple-500"></i>Practice
+                        Activities</h3>
+
+                    <div class="mb-4">
+                        <h4 class="font-bold mb-2">1. Complete the Dialogues</h4>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-gray-50 rounded-lg">
+                                <p>A: "Thanks for the help!"</p>
+                                <p>B: "<input type="text" class="border-b border-gray-400 p-1"
+                                        placeholder="Your response">"</p>
+                            </div>
+                            <div class="p-3 bg-gray-50 rounded-lg">
+                                <p>A: "I have to leave now."</p>
+                                <p>B: "<input type="text" class="border-b border-gray-400 p-1"
+                                        placeholder="Your response">"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="font-bold mb-2">2. Matching Game</h4>
+                        <p class="mb-2">Match each situation with the appropriate farewell:</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <div class="p-2 border border-gray-200 rounded">Leaving a teacher's office</div>
+                            <div class="p-2 border border-gray-200 rounded">"Goodbye, have a nice day!"</div>
+                            <div class="p-2 border border-gray-200 rounded">Saying bye to friends</div>
+                            <div class="p-2 border border-gray-200 rounded">"See ya later!"</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold mb-2">3. Create Your Own Dialogues</h4>
+                        <textarea
+                            class="w-full p-3 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            rows="5" placeholder="Write a short dialogue using farewell expressions..."></textarea>
+                        <button
+                            class="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded-lg transition">Submit</button>
+                    </div>
+                </div>
+
+                <div class="flip-card">
+                    <div class="flip-card-inner bg-white rounded-lg shadow">
+                        <div class="flip-card-front p-4">
+                            <h4 class="font-bold mb-2"><i class="fas fa-lightbulb mr-2 text-yellow-500"></i>Cultural Tip
+                            </h4>
+                            <p>In English-speaking cultures, farewells often include future plans ("See you tomorrow")
+                                or well-wishing ("Have a good weekend").</p>
+                        </div>
+                        <div class="flip-card-back p-4">
+                            <h4 class="font-bold mb-2"><i class="fas fa-handshake mr-2 text-purple-500"></i>Farewell
+                                Customs</h4>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Handshakes are common in formal situations</li>
+                                <li>Hugs may be appropriate between close friends</li>
+                                <li>Waving is common for casual goodbyes</li>
+                                <li>Leaving without saying goodbye is considered rude</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/watch?v=ccHchBBOwAo" title="Farewells Lesson" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between mt-8">
+            <button id="prev-btn"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition hidden">
+                <i class="fas fa-arrow-left mr-2"></i>Previous
+            </button>
+            <button id="next-btn"
+                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition ml-auto">
+                Next<i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentSession = 1;
+        const totalSessions = 3;
+
+        function showSession(sessionNumber) {
+            // Hide all session content
+            document.querySelectorAll('.session-content').forEach(el => {
+                el.classList.remove('active');
+                el.classList.add('hidden');
+            });
+
+            // Show selected session content
+            const sessionEl = document.getElementById(`session-${sessionNumber}`);
+            sessionEl.classList.add('active');
+            sessionEl.classList.remove('hidden');
+
+            currentSession = sessionNumber;
+            updateNavButtons();
+        }
+
+        function updateNavButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            // Previous button
+            if (currentSession === 1) {
+                prevBtn.classList.add('hidden');
+            } else {
+                prevBtn.classList.remove('hidden');
+            }
+
+            // Next button
+            if (currentSession === totalSessions) {
+                nextBtn.textContent = 'Finish';
+                nextBtn.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Finish';
+            } else {
+                nextBtn.textContent = 'Next';
+                nextBtn.innerHTML = 'Next<i class="fas fa-arrow-right ml-2"></i>';
+            }
+        }
+
+        // Navigation button event listeners
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentSession < totalSessions) {
+                showSession(currentSession + 1);
+            } else {
+                alert('Congratulations! You have completed all learning sessions.');
+            }
+        });
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentSession > 1) {
+                showSession(currentSession - 1);
+            }
+        });
+
+        // Initialize by showing first session
+        document.addEventListener('DOMContentLoaded', () => {
+            showSession(1);
+        });
+    </script>
+</body>
+
+</html>
